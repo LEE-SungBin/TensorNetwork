@@ -94,7 +94,7 @@ def get_setting(
         return f.is_file() and (f.suffix == ".json") and f.stat().st_size > 0
 
     # * Scan the setting directory and gather result files
-    setting_dir = location / f"./setting"
+    setting_dir = location / f"setting"
     setting_files = [f for f in setting_dir.iterdir() if filter_file(f)]
 
     # * Read files
@@ -140,7 +140,7 @@ def delete_result(
 
     for key in key_names:
         target_setting = location / f"setting/{key}.json"
-        target_file = location / f"/data/{key}.pkl"
+        target_file = location / f"data/{key}.pkl"
 
         try:
             target_setting.unlink()
