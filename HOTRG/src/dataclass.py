@@ -53,7 +53,12 @@ class Time(Base_Time):
     matmul: float
 
     @classmethod
-    def from_base_time(cls, base_time: Base_Time, create: float, matmul: float) -> Time:
+    def from_base_time(
+            cls,
+            base_time: Base_Time,
+            create: float,
+            matmul: float
+    ) -> Time:
         kwargs = asdict(base_time)
         kwargs.update({"create": create, "matmul": matmul})
 
