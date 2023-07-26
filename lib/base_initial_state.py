@@ -29,16 +29,19 @@ def get_pure_state(
     if state == 0:
         return get_XY_state(input)
 
+    # * Ising model = state 2 potts model
+
     else:
         Z_nn_interaction = np.zeros([state, state], dtype=np.float64)
         theta = np.array([i/state*2*np.pi for i in range(state)])
-        inds = np.arange(state)
+        inds = np.arange(state)  # * [0, 1]
         for i, j in itertools.product(inds, inds):
             Z_nn_interaction[i][j] = np.exp(beta*np.cos(theta[i]-theta[j]))
 
         Z_external_field = np.array(
             [np.exp(beta*magnetic_field*np.cos(angle)) for angle in theta])
 
+        # * eigen-decompostion
         Z_nn_eigenvalue, Z_nn_eigenvector = np.linalg.eigh(Z_nn_interaction)
         Z_nn_eigenvalue, Z_nn_eigenvector = np.diag(
             np.flip(Z_nn_eigenvalue, axis=(0,))), np.flip(Z_nn_eigenvector, axis=(1,))

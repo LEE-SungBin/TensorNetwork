@@ -45,6 +45,7 @@ def get_free_energy(
     SIZE: int
 ) -> Single_Result:
 
+    # * free_energy = log(Z) / N
     free_energy = np.log(np.abs(
         np.einsum("ijij->", pure, optimize=True))) / SIZE
 

@@ -68,7 +68,7 @@ def SVD(
     S1 = (U @ S).reshape(Dleft)
     S2 = np.transpose((V @ S)).reshape(Dright)
 
-    return S1, S2
+    return S1, S2  # * T approx S1 @ S2
 
 
 def pure_TRG(

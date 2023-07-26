@@ -81,6 +81,7 @@ def run_TRG(
 
         start = time.perf_counter()
 
+        # * RG step = 1, 2, 3, ..., 20
         single_result = get_result(
             input, pure, impure_1, impure_2, impure_3, impure_4,
             pure_norms, first_order_norms,
