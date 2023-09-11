@@ -26,6 +26,8 @@ def get_pure_state(
         input.parameter.magnetic_field,
     )
 
+    # * state = 2 <-> Ising model
+
     if state == 0:
         return get_XY_state(input)
 
@@ -46,6 +48,8 @@ def get_pure_state(
         Z_nn_eigenvalue, Z_nn_eigenvector = np.diag(
             np.flip(Z_nn_eigenvalue, axis=(0,))), np.flip(Z_nn_eigenvector, axis=(1,))
 
+        # * Z_nn_interaction = Z_nn_interaction_U @ Z_nn_interaction_UT
+
         Z_nn_interaction_U, Z_nn_interaction_UT = Z_nn_eigenvector @ np.sqrt(
             Z_nn_eigenvalue), (Z_nn_eigenvector @ np.sqrt(Z_nn_eigenvalue)).T
 
@@ -55,6 +59,7 @@ def get_pure_state(
         # ])
         # print(np.allclose(theory, Z_nn_interaction_U))
 
+        # * lattice = 4-dim matrices, in general, 2d-dim matrices
         lattice = np.einsum(
             "ai,aj,ak,al,a->ijkl", Z_nn_interaction_U, Z_nn_interaction_U,
             Z_nn_interaction_U, Z_nn_interaction_U, Z_external_field)

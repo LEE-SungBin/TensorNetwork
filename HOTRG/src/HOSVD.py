@@ -21,6 +21,7 @@ def HOSVD(
     left_index_sizes = [lattice.shape[i] for i in range(len(left_indices))]
     right_index_sizes = [lattice.shape[i] for i in range(
         len(left_indices), len(left_indices) + len(right_indices))]
+    # * xsize = d**2, ysize = d**4
     xsize, ysize = np.prod(left_index_sizes), np.prod(right_index_sizes)
 
     now = time.perf_counter()
@@ -35,13 +36,14 @@ def HOSVD(
     # U, Lambda, _ = np.linalg.svd(M)
 
     # print(M)
+    # * Eigen-decompostion instead of SVD
     Lambda, U = np.linalg.eigh(M)
     U = np.flip(U, axis=(1,))
     Lambda = np.flip(Lambda, axis=(0,))
     # print(np.allclose(U@np.diag(Lambda)@U.T, M))
     mid_time.decompose.append(time.perf_counter()-now)
 
-    return U, np.sum(Lambda[bond:])
+    return U, np.sum(Lambda[bond:])  # * equal to epsilon
 
 
 def HOTRG_UD(
@@ -56,6 +58,8 @@ def HOTRG_UD(
         np.complex128
 ]:
 
+    # * 4-dim matrices
+    # * left: 9시 방향, down: 6시 방향, etc
     originL, originD, originR, originU = pure.shape
 
     bondL, bondR = (

@@ -33,8 +33,8 @@ def SVD(
 
     now = time.perf_counter()
     U, S, Vh = np.linalg.svd(T, full_matrices=False)
-    mid_time.decompose.append(time.perf_counter()-now)
     V, S = np.transpose(Vh), np.diag(np.sqrt(S[:D]))
+    mid_time.decompose.append(time.perf_counter()-now)
 
     Dleft = []
     for size in left_index_sizes:

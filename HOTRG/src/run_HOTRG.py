@@ -20,6 +20,7 @@ def run_HOTRG(
     input: Input
 ) -> tuple[Setting, Result, Time]:
 
+    # * RG step and Bond dimension
     step, Dcut = (
         input.RG_operation.step,
         input.RG_operation.Dcut,
@@ -57,6 +58,8 @@ def run_HOTRG(
         e--T--g
           f|
         """
+
+        # * HOTRG of up and down
         (temp_pure, temp_first_order,
          pure_max_UD, first_order_max_UD) = HOTRG_UD(
             pure, first_order, Dcut, mid_time)
@@ -69,6 +72,7 @@ def run_HOTRG(
           b|      e|
         """
 
+        # * HOTRG of left and right
         (new_pure, new_first_order,
          pure_max_LR, first_order_max_LR) = HOTRG_LR(
             temp_pure, temp_first_order, Dcut, mid_time)
